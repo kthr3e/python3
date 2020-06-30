@@ -34,3 +34,73 @@ K ターン終了した時点で、コインを一番多く持っていたプレ
 
 以下は入力例 1 の 2 番目の人の例を図示したものです。
 """
+
+# coding: utf-8
+# 自分の得意な言語で
+# Let's チャレンジ！！
+
+list = input().split(" ")
+masu = []
+goal_count = 1
+for i in range(int(list[0])-2):
+    mas = input().split(" ")
+    masu.append(mas)
+
+moves = []
+for i in range(int(list[2])):
+    move = input().split(" ")
+    moves.append(move)
+
+#ます、コイン、ゴール順
+players = [[0 for i in range(3)] for j in range(int(list[1]))]
+
+#何回目の行動か
+for i in range(int(list[2])):
+    #何人目の行動か
+    for j in range(int(list[1])):
+        #goal
+        if 1 <=players[j][2]<= 3:
+            players[j][1] += int(moves[i][j]) * (4 - int(players[j][2]))
+            continue
+
+
+        players[j][0] += int(moves[i][j])
+
+
+     #saikoroでゴールするとき
+        if(int(players[j][0]) >= int(list[0]) and int(players[j][2]) == 0):
+            players[j][2] = goal_count
+            goal_count += 1
+            continue
+
+        #coin add
+        players[j][1] = players[j][1] + int(masu[players[j][0]-1][1])
+
+        #coin<0
+        if players[j][1] < 0:
+            players[j][1] = 0
+        #masu add
+        players[j][0] = players[j][0] + int(masu[players[j][0]-1][0])
+
+        # マスの効果でゴールするとき
+        if(int(players[j][0]) >= int(list[0]) and int(players[j][2]) == 0):
+            players[j][2] = goal_count
+            goal_count += 1
+
+        #ゴールの外側行くとき
+        if players[j][0] > int(list[0]):
+            players[j][0] = int(list[0])
+
+    #スタートよりもドルとき
+        if int(players[j][0]) < 0:
+            players[j][0] = 0
+
+#一番多い人探し
+coin = players[0][1]
+hito = 1
+for i in range(int(list[1])):
+    if coin < players[i][1]:
+        coin = players[i][1]
+        hito = i + 1
+
+print(str(hito) + " "+ str(coin))
