@@ -1,49 +1,23 @@
 
 #https://www.suzu6.net/posts/88-python-max-min/
 #https://juppy.hatenablog.com/entry/2018/12/11/python_%E6%96%87%E5%AD%97%E3%82%A2%E3%83%AB%E3%83%95%E3%82%A1%E3%83%99%E3%83%83%E3%83%88%E2%87%86%E6%95%B0%E5%AD%97
+import itertools
+import pandas as pd
 names = list(map(str,input().split()))
-#+print(names)
-#入力とは逆順の名前のリスト
-names2 = []
-names2.append(names[1])
-names2.append(names[0])
-#print(names2)
+def matching(p1,p2):
+    #print(len(p1))
+    num1 = [int(ord(p1[i])) for i in range(len(p1))]
+    num2 = [int(ord(p2[i])) for i in range(len(p2))]
+    nums1 = num1 + num2
+    nums2 = num2 + num1
+    return max((sum(nums1[::2]) - sum(nums1[1::2])) % 101,(sum(nums2[::2]) - sum(nums2[1::2])) % 101)
 #print(names)
-#アルファベットを数字に変換したときに入れるリスト
-num_list = []
-num_list2 = []
+pair = [list(i) for i in itertools.combinations(names,2)]
+#print(pair)
+#ここで二人のペアの配列リストを作成。
+for i in range(len(pair)):
+    pair[i].append(matching(*pair[i]))
 
-for name in names:
-    for i in range(len(name)):
-        num_list.append(ord(name[i]) % 101)
-#print(num_list)
-
-
-for name in names2:
-    for i in range(len(name)):
-        num_list2.append(ord(name[i]) % 101)
-#print(num_list2)
-
-# 入力された通りの計算
-sum_list = num_list
-#print(sum_list)
-while len(sum_list) != 1:
-    for i in range(len(sum_list) - 1):
-        sum_list[i] = sum_list[i] + sum_list[i + 1]
-        if sum_list[i] > 101:
-            sum_list[i] -= 101
-    del sum_list[-1]
-    #print(sum_list)
-
-#入力とは名前を逆にして計算
-sum_list2 = num_list2
-#print(sum_list2)
-while len(sum_list2) != 1:
-    for i in range(len(sum_list2) - 1):
-        sum_list2[i] = sum_list2[i] + sum_list2[i + 1]
-        if sum_list2[i] > 101:
-            sum_list2[i] -= 101
-    del sum_list2[-1]
-    #print(sum_list2)
-
-print(max(sum_list[0],sum_list2[0]))
+#print(pair)
+df = pd.DataFrame(pair,index = ["一組目","二組目","三組目"],columns = ['一人目','二人目','相性度'])
+df
