@@ -20,4 +20,5 @@ for i in range(len(pair)):
 
 #print(pair)
 df = pd.DataFrame(pair,columns = ['一人目','二人目','相性度'])
-print(df.to_string(index=False))
+pd.set_option('display.unicode.east_asian_width', True)
+df.style.set_properties(**{'text-align': 'left'})
