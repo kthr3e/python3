@@ -19,5 +19,5 @@ for i in range(len(pair)):
     pair[i].append(matching(*pair[i]))
 
 #print(pair)
-df = pd.DataFrame(pair,index = ["一組目","二組目","三組目"],columns = ['一人目','二人目','相性度'])
-df
+df = pd.DataFrame(pair,columns = ['一人目','二人目','相性度'])
+print(df.to_string(index=False))
