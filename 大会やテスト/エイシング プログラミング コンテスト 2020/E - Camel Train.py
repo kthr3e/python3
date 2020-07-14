@@ -146,54 +146,54 @@ for i in range(T):
 #前から見ると、すべての項を対象としてしまい、すべての項の最大をとって入れてしまうため、最大より劣るやつで、その項までに入らなければいけないものが入らなくなってしまう。
 #貪欲法というらしい。
 #なんかC言語でやっていたので断念検索してみたらパイソンの人がいた。
-    import heapq as hq
+import heapq as hq
 
-    T = int(input())
-    for _ in range(T):
-        N = int(input())
-        camels = [list(map(int, input().split())) for _ in range(N)]
-        base = 0
-        camels_L = [[] for _ in range(N+1)]
-        camels_R = [[] for _ in range(N+1)]
-        # 左から詰めるラクダと右から詰めるラクダを仕分ける
-        for camel in camels:
-            if camel[1] >= camel[2]:
-                camels_L[camel[0]].append(camel[1] - camel[2])
-                base += camel[2] # LとRの低いほうを加算
-            else:
-                # Rラクダは右から何列目かを考えるのでN - camel[0]と反転する
-                camels_R[N - camel[0]].append(camel[2] - camel[1])
-                base += camel[1] # LとRの低いほうを加算
+T = int(input())
+for _ in range(T):
+    N = int(input())
+    camels = [list(map(int, input().split())) for _ in range(N)]
+    base = 0
+    camels_L = [[] for _ in range(N+1)]
+    camels_R = [[] for _ in range(N+1)]
+    # 左から詰めるラクダと右から詰めるラクダを仕分ける
+    for camel in camels:
+        if camel[1] >= camel[2]:
+            camels_L[camel[0]].append(camel[1] - camel[2])
+            base += camel[2] # LとRの低いほうを加算
+        else:
+        # Rラクダは右から何列目かを考えるのでN - camel[0]と反転する
+            camels_R[N - camel[0]].append(camel[2] - camel[1])
+            base += camel[1] # LとRの低いほうを加算
 
-        diff = 0
+            diff = 0
 
-        # Lラクダについて考える
-        heap_camels = []
-        hq.heapify(heap_camels)
-        """
-プライオリティキューは 「最小値(あるいは最大値)を取り出すこと」に特化した配列です。
-使う場面は「配列の要素が増える」と「最小値を取り出す」を何度も繰り返す時です。
-（配列の要素が増えないのであれば、最初にソートして前から取っていけばいい。
-逆に言えば、「配列の要素が増える→ソートする→最小値を取り出す」を繰り返してしまう時は
-積極的にプライオリティキューを用いれば良い）
-"""
-        for i in range(1, N+1):
-            # 左からi番目までが限度のラクダをまとめて追加
-            for camel in camels_L[i]:
-                hq.heappush(heap_camels, camel)
-            # 左からi番目までに入りきらない場合に低いものから除外
-            while len(heap_camels) > i:
-                hq.heappop(heap_camels)
+    # Lラクダについて考える
+    heap_camels = []
+    hq.heapify(heap_camels)
+    """
+    プライオリティキューは 「最小値(あるいは最大値)を取り出すこと」に特化した配列です。
+    使う場面は「配列の要素が増える」と「最小値を取り出す」を何度も繰り返す時です。
+    （配列の要素が増えないのであれば、最初にソートして前から取っていけばいい。
+    逆に言えば、「配列の要素が増える→ソートする→最小値を取り出す」を繰り返してしまう時は
+    積極的にプライオリティキューを用いれば良い）
+    """
+    for i in range(1, N+1):
+    # 左からi番目までが限度のラクダをまとめて追加
+        for camel in camels_L[i]:
+            hq.heappush(heap_camels, camel)
+        # 左からi番目までに入りきらない場合に低いものから除外
+        while len(heap_camels) > i:
+            hq.heappop(heap_camels)
         # heapqに残ったものがすべての条件を満たしうれしさが最大
-        diff += sum(heap_camels)
+    diff += sum(heap_camels)
 
         # Rラクダについても同様
-        heap_camels = []
-        hq.heapify(heap_camels)
-        for i in range(1, N+1):
-            for camel in camels_R[i]:
-                hq.heappush(heap_camels, camel)
-            while len(heap_camels) > i:
-                hq.heappop(heap_camels)
-        diff += sum(heap_camels)
-        print(diff + base)
+    heap_camels = []
+    hq.heapify(heap_camels)
+    for i in range(1, N+1):
+        for camel in camels_R[i]:
+            hq.heappush(heap_camels, camel)
+        while len(heap_camels) > i:
+            hq.heappop(heap_camels)
+    diff += sum(heap_camels)
+    print(diff + base)
