@@ -14,7 +14,6 @@ pair = [list(i) for i in itertools.combinations(names,2)]
 for i in range(len(pair)):
     pair[i].append(matching(*pair[i]))
 
-#print(pair)
 df = pd.DataFrame(pair,columns = ['一人目','二人目','相性度'])
 pd.set_option('display.unicode.east_asian_width', True)
 df.style.set_properties(**{'text-align': 'left'})
