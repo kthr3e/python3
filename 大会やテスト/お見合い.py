@@ -5,16 +5,13 @@ import itertools
 import pandas as pd
 names = list(map(str,input().split()))
 def matching(p1,p2):
-    #print(len(p1))
     num1 = [int(ord(p1[i])) for i in range(len(p1))]
     num2 = [int(ord(p2[i])) for i in range(len(p2))]
     nums1 = num1 + num2
     nums2 = num2 + num1
     return max((sum(nums1[::2]) - sum(nums1[1::2])) % 101,(sum(nums2[::2]) - sum(nums2[1::2])) % 101)
-#print(names)
+
 pair = [list(i) for i in itertools.combinations(names,2)]
-#print(pair)
-#ここで二人のペアの配列リストを作成。
 for i in range(len(pair)):
     pair[i].append(matching(*pair[i]))
 
