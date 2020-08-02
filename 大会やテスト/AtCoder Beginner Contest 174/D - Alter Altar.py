@@ -1,0 +1,2 @@
+input()
+C=input()
