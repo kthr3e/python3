@@ -1,0 +1,72 @@
+<html><head>
+<meta charset="utf-8">
+<title>課題</title>
+<script>
+var board = [["◯", "ー", "×"],["×", "×", "ー"],["◯", "◯", "◯"]]; //「ー」は途中でゲームが終了し、◯でも×でもない状態
+function win_or_lose(){
+    var count = 3;
+    var answer = "◯の勝ち";//勝敗を格納する変数 デフォルトでは「◯の勝ち」が入っている
+    var board_view = "";//ボードの状態を表示するための変数
+
+    //(a)ここに追加変数（必要であれば）を追記して実装する
+    //
+    var result = 0;
+    var e = 0;
+    //
+    //追記ここまで
+
+    for(var i=0; i<count; i++){
+        for(var j=0; j<count; j++){
+            board_view += board[i][j];
+        }
+        board_view += "<br>";
+    }
+
+    //(b)ここに判定処理を追記して実装する
+    //
+    //縦横判定
+    for(var i=0;i<count;i++){
+      if (board[i][0]==board[i][1] & board[i][1]==board[i][2]) {
+        if (board[i][0]=="◯"){
+          result = 1;
+          e += 1;
+        }
+        else {
+          result = 2;
+          e+=1;
+        }
+      }
+      if (board[0][i]==board[1][i] & board[1][i]==board[2][i]) {
+        if (board[0][i]=="◯"){
+          result = 1;
+          e+=1;
+        }
+        else {
+          result = 2;
+          e+=1
+        }
+      }
+    }
+    //斜め判定
+
+
+
+    //
+    //追記ここまで
+
+    document.getElementById("board_view").innerHTML = board_view;
+    document.getElementById("answer").innerHTML = answer;
+}
+</script>
+</head>
+<body>
+
+    <button onclick = win_or_lose();>
+    判定！
+    </button>
+    <hr>
+    <div id="board_view"></div>
+    <hr>
+    <div id="answer"></div>
+</body>
+</html>
