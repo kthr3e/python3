@@ -77,6 +77,7 @@ while ~isempty(email_contents)
 
     % Look up the word in the dictionary and add to word_indices if
     % found
+    %辞書で単語を検索し、見つかった場合はword_indicesに追加します
     % ====================== YOUR CODE HERE ======================
     % Instructions: Fill in this function to add the index of str to
     %               word_indices if it is in the vocabulary. At this point
@@ -89,14 +90,29 @@ while ~isempty(email_contents)
     %               'action' appears. For example, if vocabList{18} =
     %               'action', then, you should add 18 to the word_indices 
     %               vector (e.g., word_indices = [word_indices ; 18]; ).
-    % 
+    %
+    % 手順：この関数に入力して、語彙に含まれている場合は、strのインデックスをword_indicesに追加します。
+    % コードのこの時点で、変数strに電子メールからの語幹があります。
+    % 語彙リスト（vocabList）でstrを検索する必要があります。
+    % 一致するものが存在する場合は、単語のインデックスをword_indicesベクトルに追加する必要があります。
+    % 具体的には、str = 'action'の場合、語彙リストを調べて、vocabList'action 'のどこに表示されるかを見つける必要があります。
+    % たとえば、vocabList {18} = 'action'の場合、word_indicesベクトルに18を追加する必要があります（たとえば、word_indices = [word_indices; 18];）。
+    %  
     % Note: vocabList{idx} returns a the word with index idx in the
     %       vocabulary list.
-    % 
+    %
+    % 注：vocabList {idx}は、語彙リスト内のインデックスidxを持つ単語を返します。
+    %
     % Note: You can use strcmp(str1, str2) to compare two strings (str1 and
     %       str2). It will return 1 only if the two strings are equivalent.
     %
-
+    % 注：strcmp（str1、str2）を使用して、2つの文字列（str1とstr2）を比較できます。 
+    % 2つの文字列が同等である場合にのみ1を返します。
+    for idx = 1:length(vocabList)
+      if (strcmp(vocabList{idx},str))
+        word_indices = [word_indices; idx];
+      endif
+    endfor
 
 
 
