@@ -35,6 +35,6 @@ elseif(LINUX)
 endif(APPLE)
 
 add_custom_command(TARGET h264decoder POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E create_symlink 
+                   COMMAND ${CMAKE_COMMAND} -E create_symlink
                    ${CMAKE_BINARY_DIR}/libh264decoder.so ${CMAKE_SOURCE_DIR}/libh264decoder.so)
 install(TARGETS h264decoder LIBRARY DESTINATION .)
