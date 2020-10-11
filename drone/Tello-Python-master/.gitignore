@@ -2,3 +2,6 @@
 *.DS_Store
 *.dat
 *.caffemodel
+__pycache__*
+build
+*.so
