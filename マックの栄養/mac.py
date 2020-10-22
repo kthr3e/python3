@@ -30,7 +30,7 @@ def get_nutrition_val_list(nutrition_dict, target_menu_list, eiyou_name):
     return result_list
 
 
-
+# メニューリスト
 target_menu_list = [
   "てりやきマックバーガー",
   "ハンバーガー",
